@@ -1,0 +1,11 @@
+# .dockerignore
+__pycache__
+*.pyc
+.git
+.gitignore
+dataset.csv
+rating_predictor_svm.ipynb
+*.md
+.dockerignore
+Dockerfile
+k8s/
