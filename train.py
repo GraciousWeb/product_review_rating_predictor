@@ -16,7 +16,9 @@ def clean_text(text):
 
 def train():
     df = pd.read_csv("dataset.csv")
-    df["rating"] = df["Stars"].str.extract(r'(\d+)').astype(float).astype(int)
+    df["rating"] = df["Stars"].str.extract(r'(\d+)').astype(float)
+    df = df.dropna(subset=["rating"])
+    df["rating"] = df["rating"].astype(int)
     df["clean_review"] = df["Base_Review"].apply(clean_text)
     df = df.dropna(subset=["clean_review", "rating"])
     df = df[df["clean_review"].str.len() > 0]
