@@ -1,4 +1,3 @@
-# test_model.py
 import pytest
 import pickle
 import os
