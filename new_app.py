@@ -5,7 +5,7 @@ import pickle
 with open("predictor.pkl", "rb") as f:
     model = pickle.load(f)
 
-with open("tf_idf.pkl", "rb") as f:
+with open("tfidf.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 st.title("⭐ Review Star Rating Predictor")
