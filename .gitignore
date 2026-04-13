@@ -3,7 +3,6 @@ __pycache__/
 
 venv/
 
-*.pkl
 *.joblib
 *.h5
 *.pt
