@@ -9,25 +9,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
 
-def clean_text(text):
-    text = str(text).lower()
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-    return text.strip()
-
 def train():
-    df = pd.read_csv("dataset.csv")
-    df["rating"] = df["Stars"].str.extract(r'(\d+)').astype(float)
-    df = df.dropna(subset=["rating"])
-    df["rating"] = df["rating"].astype(int)
-    df["clean_review"] = df["Base_Review"].apply(clean_text)
-    df = df.dropna(subset=["clean_review", "rating"])
-    df = df[df["clean_review"].str.len() > 0]
-    noise = ["translate review to english"]
-    df = df[~df["clean_review"].isin(noise)]
-    df = df.drop_duplicates(subset=["clean_review"])
+    df = pd.read_csv("cleaned_amazon_reviews.csv")
+
+    X = df["clean_review"]
+    y = df["rating"]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        df["clean_review"], df["rating"], test_size=0.2, random_state=42
+        X, y, test_size=0.2, random_state=42, stratify=y
     )
 
     vectorizer = TfidfVectorizer(max_features=5000, stop_words="english", ngram_range=(1, 2))
